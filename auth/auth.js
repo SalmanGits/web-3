@@ -1,12 +1,12 @@
 const jwt = require('jsonwebtoken');
 const verifyToken = async (req, res, next) => {
     let token = req.headers.authorization;
-    token = token.split(" ")[1]
     if (!token) {
         const error = new Error('Unauthorized');
         error.status = 401;
         return next(error);
     }
+    token = token.split(" ")[1]
     try {
         const user = await jwt.verify(token, process.env.JWT_SECRET);
         req.user = user;
